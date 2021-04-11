@@ -1,0 +1,15 @@
+{
+  "name": "mven_test",
+  "version": "1.0.0",
+  "description": "MVEN test project",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "keywords": [
+    "MVEN",
+    "test"
+  ],
+  "author": "lansana sylla (lansanalsm@gmail.com)",
+  "license": "ISC"
+}
