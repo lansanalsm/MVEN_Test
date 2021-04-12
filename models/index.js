@@ -1,13 +1,28 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
-// mongoose schemas
+// Provider schema and model
+const providerSchema = new Schema({
+  name: String
+})
+
+const Provider = mongoose.model('Provider', providerSchema)
+
+// Client shema and model
 const clientSchema = new Schema({
   email: String,
   name: String,
   phone: String,
-  providers: []
+  providers: [{
+    type: Schema.Types.ObjectId,
+    ref: 'Provider'
+  }]
 })
 
-// models
-module.exports = mongoose.model('Client', clientSchema)
+const Client = mongoose.model('Client', clientSchema)
+
+// models export
+module.exports = {
+  Client,
+  Provider
+}

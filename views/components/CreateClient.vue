@@ -7,7 +7,7 @@
                    <h4 class='text-primary'>New client </h4>
                 </div>
                 <div class="col-5 text-right">
-                    <router-link to="/" class="btn btn-secondary btn-sm">Liste Client</router-link>
+                    <a v-on:click="gotoListClient" class="btn btn-secondary btn-sm">Liste Client</a>
                 </div>
          </div>
 
@@ -41,11 +41,19 @@
             </div>
             <div class="form-group row justify-content-center">
                 <div class="border_style">
-                    <p v-for="(provider, index) in this.providers" :key="index">
-                        <input type='checkbox' id="provider" >
-                        <label for="provider" class='provider_name'> {{ provider }} </label>
-                        <i class="bi bi-trash" v-on:click="deleteItem" :data-value="provider" ></i>
-                    </p>
+                    <div v-for="(provider, index) in this.allProviders" :key="index">
+                        <div>
+                            <input 
+                                v-bind:checked="myProvidersContains(provider._id)"
+                                type='checkbox'
+                                v-bind:id="index"
+                                v-on:click="toggleProvider" 
+                                :data-value="provider._id" 
+                            />
+                        <label v-bind:for="index" class='provider_name'> {{ provider.name }} </label>
+                        <i class="bi bi-trash" v-on:click="deleteProvider" :data-value="provider._id" ></i>
+                       </div>
+                    </div>
                 </div>
             </div>
 
@@ -83,37 +91,69 @@
     data() {
         return {
           client:{},
-          providers: [],
+          allProviders: [],
+          myProviders: [],
           provider: ''
         }
+    },
+    created() {
+        this.fetchProviders()
     },
     methods: {
         addClient() {
             let uri = 'http://localhost:3000/clients';
-            this.client.providers = this.providers
+            this.client.providers = this.myProviders
             this.axios.post(uri, this.client).then(() => {
-            this.$router.push({name: 'home'});
+            this.$router.push({name: 'home'})
         });
+      },
+      fetchProviders () {
+        var uri = 'http://localhost:3000/providers'
+        this.axios.get(uri).then((response) => {
+            this.allProviders = response.data
+        })
+      },
+      deleteProvider (event) {
+        this.$confirm("Do you really want to delete this provider ?").then(() => {
+            var provider_id = event.target.getAttribute('data-value')
+            let uri = 'http://localhost:3000/providers/' + provider_id
+            this.axios.delete(uri).then(() => {
+                this.fetchProviders()
+            })
+        })
       },
       addProvider() {
           if (this.provider) {
-              if (!this.providers.includes(this.provider)) {
-                  this.providers.push(this.provider)
-              }
-            this.provider =''            
+              this.$confirm("Do you really want to add this provider ?").then(() => {
+                var uri = 'http://localhost:3000/providers'
+                this.axios.post(uri, {name: this.provider}).then(() => {
+                })
+                
+                this.provider = ''
+                this.fetchProviders()
+            }) 
         }
       },
-      deleteItem (event) {
-        var value = event.target.getAttribute('data-value');
-        const index = this.providers.indexOf(value);
-        if (index > -1) {
-            this.providers.splice(index, 1);
+      toggleProvider(event) {
+          var provider_id  = event.target.getAttribute('data-value')
+          if(event.target.checked) {
+             if (!this.myProviders.includes(provider_id)) {
+                this.myProviders.push(provider_id)
+            } 
+          }else {
+            const index = this.myProviders.indexOf(provider_id)
+            if (index > -1) {
+                this.myProviders.splice(index, 1)
+            }
         }
       },
       gotoListClient () {
             this.$confirm("Do you really want leave this page ?").then(() => {
-                this.$router.push({name: 'home'});
+                this.$router.push({name: 'home'})
             });
+        },
+        myProvidersContains(item) {
+            return this.myProviders.indexOf(item) > -1
         }
     }
   }

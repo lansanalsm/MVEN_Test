@@ -2,11 +2,12 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const cors = require('cors')
 const mongoose = require('mongoose')
-const config = require('./models/db.config')
-
-const apiRoute = require('./api')
 const swaggerUi = require('swagger-ui-express')
 const swaggerDocument = require('./swagger.json')
+
+const config = require('./models/db.config')
+const clientRoutes = require('./api').clientRoutes
+const providerRoutes = require('./api').providerRoutes
 
 const app = express()
 const path = require('path')
@@ -24,7 +25,8 @@ app.use(cors())
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
 
-app.use('/clients', apiRoute)
+app.use('/clients', clientRoutes)
+app.use('/providers', providerRoutes)
 app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument))
 
 // Serve Vue.js as SPA in production

@@ -2,7 +2,7 @@
     "swagger":"2.0",
     "info":{
        "version":"1.0.0",
-       "title":"proTranslating test project",
+       "title":"MVEN test project",
        "description":"this project is build on top of MEVN",
        "license":{
           "name":"MIT",
@@ -13,8 +13,8 @@
     "basePath":"/",
     "tags":[
        {
-          "name":"home",
-          "description":"API for clients"
+          "name":"API DOCUMENTATION",
+          "description":"ref: https://swagger.io/"
        }
     ],
     "schemes":[
@@ -53,7 +53,7 @@
                   "name":"client",
                   "in":"body",
                   "required": true,
-                  "description":"User that we want to add",
+                  "description":"Client that we want to add",
                   "schema":{
                      "$ref":"#/definitions/Client"
                   }
@@ -138,7 +138,7 @@
                  "name":"id",
                  "in":"path",
                  "required": true,
-                 "description":"User that we want to delete"
+                 "description":"Client that we want to delete"
               }
            ],
            "produces":[
@@ -153,7 +153,134 @@
               }
            }
         }
-      }
+      },
+      "/providers":{
+         "get":{
+            "tags":[
+               "Providers"
+            ],
+            "summary":"Get all Providers in the database",
+            "responses":{
+               "200":{
+                  "description":"OK",
+                  "schema":{
+                     "$ref":"#/definitions/Providers"
+                  }
+               }
+            }
+         },
+         "post":{
+           "tags":[
+              "Providers"
+           ],
+           "summary":"add a new provider in the database",
+           "description":"add a new provider in the database",
+           "parameters":[
+              {
+                 "name":"provider",
+                 "in":"body",
+                 "required": true,
+                 "description":"Provider that we want to add",
+                 "schema":{
+                    "$ref":"#/definitions/Provider"
+                 }
+              }
+           ],
+           "produces":[
+              "application/json"
+           ],
+           "responses":{
+              "200":{
+                 "description":"New provider is successfully created",
+                 "schema":{
+                    "$ref":"#/definitions/Provider"
+                 }
+              }
+           }
+        }
+      },
+      "/providers/{id}":{
+        "get":{
+           "tags":[
+              "Providers"
+           ],
+           "parameters":[
+              {
+                 "name":"id",
+                 "in":"path",
+                 "required": true,
+                 "description":"the ID of the provider we want to get"
+              }
+           ],
+           "summary":"Get a single provider in the database",
+           "responses":{
+              "200":{
+                 "description":"OK",
+                 "schema":{
+                    "$ref":"#/definitions/Provider"
+                 }
+              }
+           }
+        },
+        "put":{
+           "tags":[
+              "Providers"
+           ],
+           "parameters":[
+              {
+                 "name":"id",
+                 "in":"path",
+                 "required": true,
+                 "description":"the id of the provider to update"
+                 
+              },
+              {
+                 "name":"provider",
+                 "in":"body",
+                 "required": true,
+                 "description":"new value of the provider we want to save",
+                 "schema":{
+                    "$ref":"#/definitions/Provider"
+                 }
+              }
+           ],
+           "summary":"Update a provider in the database",
+           "responses":{
+              "200":{
+                 "description":"OK",
+                 "schema":{
+                    "$ref":"#/definitions/Provider"
+                 }
+              }
+           }
+        },
+        "delete":{
+          "tags":[
+             "Providers"
+          ],
+          "summary":"Delete a provider in the database",
+          "description":"delete a provider in the database based on his id",
+          "parameters":[
+             {
+                "name":"id",
+                "in":"path",
+                "required": true,
+                "description":"Provider that we want to delete"
+             }
+          ],
+          "produces":[
+             "application/json"
+          ],
+          "responses":{
+             "200":{
+                "description":"provider is successfully deleted",
+                "schema":{
+                   "$ref":"#/definitions/Provider"
+                }
+             }
+          }
+       }
+     }
     },
     "definitions":{
        "Client":{
@@ -177,10 +304,10 @@
                 "type":"string"
              },
              "providers":{
-                "type":"array",
-                "items": {
-                   "type": "string"
-                  }
+               "type":"array",
+               "items":{
+                  "$ref":"#/definitions/Provider"
+               }
              }
           }
        },
@@ -189,6 +316,26 @@
           "items":{
              "$ref":"#/definitions/Client"
           }
-       }
+       },
+       "Provider":{
+         "required":[
+            "name"
+         ],
+         "properties":{
+            "_id":{
+               "type":"integer",
+               "uniqueItems":true
+            },
+            "name":{
+               "type":"string"
+            }
+         }
+      },
+      "Providers":{
+         "type":"array",
+         "items":{
+            "$ref":"#/definitions/Provider"
+         }
+      }
     }
  }

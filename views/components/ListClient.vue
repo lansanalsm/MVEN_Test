@@ -27,8 +27,8 @@
                   <td>{{ client.email }}</td>
                   <td>{{ client.phone }}</td>
                   <td>
-                  <span v-for="provider in client.providers" :key="provider">
-                      {{provider}},
+                  <span v-for="(provider, index) in client.providers" :key="index">
+                      {{provider.name}},
                   </span>
                   </td>
                   <td>
@@ -75,7 +75,6 @@
                 this.axios.delete(uri).then(() => {
                     this.fetchClient()
                 });
-
             });
         }
     }
