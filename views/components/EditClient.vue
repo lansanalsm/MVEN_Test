@@ -90,18 +90,16 @@
     created() {
         let uri = `http://localhost:3000/clients/${this.$route.params.id}`;
         this.axios.get(uri).then((response) => {
-            this.client = response.data;
+            this.client = response.data
             this.providers = this.client.providers
         });
       },
     methods: {
       updateClient() {
-          let uri = `http://localhost:3000/clients/${this.$route.params.id}`;
-          console.log('ID: ',this.$route.params.id)
+          let uri = `http://localhost:3000/clients/${this.$route.params.id}`
           this.client.providers = this.providers
-          console.log('updated :', this.client)
           this.axios.put(uri, this.client).then(() => {
-            this.$router.push({name: 'home'});
+            this.$router.push({name: 'home'})
           });
       },
       addProvider() {
@@ -109,19 +107,19 @@
               if (!this.providers.includes(this.provider)) {
                   this.providers.push(this.provider)
               }
-            this.provider =''            
+            this.provider = ''            
         }
       },
       deleteItem (event) {
-        var value = event.target.getAttribute('data-value');
-        const index = this.providers.indexOf(value);
+        var value = event.target.getAttribute('data-value')
+        const index = this.providers.indexOf(value)
         if (index > -1) {
-            this.providers.splice(index, 1);
+            this.providers.splice(index, 1)
         }
       },
       gotoListClient () {
             this.$confirm("Do you really want leave this page ?").then(() => {
-                this.$router.push({name: 'home'});
+                this.$router.push({name: 'home'})
             });
       }
       

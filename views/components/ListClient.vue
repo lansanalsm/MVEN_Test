@@ -59,23 +59,21 @@
         }
       },
       created() {
-        this.fetchClient();
+        this.fetchClient()
     },
     methods: {
         fetchClient() {
-            let uri = 'http://localhost:3000/clients';
+            let uri = 'http://localhost:3000/clients'
             this.axios.get(uri).then(response => {
-                this.clients = response.data;
+                this.clients = response.data
             });
         },
         deleteClient (event) {
             this.$confirm("Do you really want to delete this element ?").then(() => {
-                var client_id = event.target.getAttribute('data-value');
-                console.log('confirmed: ', client_id)
-                let uri = 'http://localhost:3000/clients/' + client_id;
+                var client_id = event.target.getAttribute('data-value')
+                let uri = 'http://localhost:3000/clients/' + client_id
                 this.axios.delete(uri).then(response => {
-                    console.log('response :', response)
-                    this.fetchClient();
+                    this.fetchClient()
                 });
 
             });

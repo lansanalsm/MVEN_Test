@@ -91,7 +91,6 @@
         addClient() {
             let uri = 'http://localhost:3000/clients';
             this.client.providers = this.providers
-            console.log('client : ', this.client)
             this.axios.post(uri, this.client).then(() => {
             this.$router.push({name: 'home'});
         });

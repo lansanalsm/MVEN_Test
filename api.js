@@ -17,7 +17,6 @@ apiRoutes.route('/')
   })
   .post(function (req, res) {
     const client = new Client(req.body)
-    console.log('body', req.body)
     client.save().then((err) => {
       if (err) { console.error(err) }
       res.status(200).json({ business: 'Client saved successfully' })
