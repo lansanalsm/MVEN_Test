@@ -1,15 +1,54 @@
 {
-  "name": "mven_test",
-  "version": "1.0.0",
-  "description": "MVEN test project",
-  "main": "index.js",
+  "name": "views",
+  "version": "0.1.0",
+  "private": true,
   "scripts": {
-    "test": "test"
+    "serve": "vue-cli-service serve views/main",
+    "build": "vue-cli-service build views/main",
+    "lint": "vue-cli-service lint views/main"
   },
-  "keywords": [
-    "MVEN",
-    "test"
-  ],
-  "author": "lansana sylla (lansanalsm@gmail.com)",
-  "license": "ISC"
+  "dependencies": {
+    "axios": "^0.21.1",
+    "body-parser": "^1.19.0",
+    "bootstrap": "^4.6.0",
+    "bootstrap-icons": "^1.4.1",
+    "core-js": "^3.6.5",
+    "cors": "^2.8.5",
+    "mongoose": "^5.12.3",
+    "path": "^0.12.7",
+    "swagger-ui-express": "^4.1.6",
+    "vue": "^2.6.11",
+    "vue-axios": "^3.2.4",
+    "vue-router": "^3.5.1",
+    "vue-simple-alert": "^1.1.1"
+  },
+  "devDependencies": {
+    "@vue/cli-plugin-babel": "~4.5.0",
+    "@vue/cli-plugin-eslint": "~4.5.0",
+    "@vue/cli-service": "~4.5.0",
+    "babel-eslint": "^10.1.0",
+    "eslint": "^6.7.2",
+    "eslint-plugin-vue": "^6.2.2",
+    "standard": "^16.0.3",
+    "vue-template-compiler": "^2.6.11"
+  },
+  "eslintConfig": {
+    "root": true,
+    "env": {
+      "node": true
+    },
+    "extends": [
+      "plugin:vue/essential",
+      "eslint:recommended"
+    ],
+    "parserOptions": {
+      "parser": "babel-eslint"
+    },
+    "rules": {}
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead"
+  ]
 }
