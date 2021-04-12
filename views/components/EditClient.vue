@@ -88,7 +88,7 @@
         }
     },
     created() {
-        let uri = `http://localhost:3000/clients/edit/${this.$route.params.id}`;
+        let uri = `http://localhost:3000/clients/${this.$route.params.id}`;
         this.axios.get(uri).then((response) => {
             this.client = response.data;
             this.providers = this.client.providers
@@ -96,11 +96,11 @@
       },
     methods: {
       updateClient() {
-          let uri = `http://localhost:3000/clients/update/${this.$route.params.id}`;
+          let uri = `http://localhost:3000/clients/${this.$route.params.id}`;
           console.log('ID: ',this.$route.params.id)
           this.client.providers = this.providers
           console.log('updated :', this.client)
-          this.axios.post(uri, this.client).then(() => {
+          this.axios.put(uri, this.client).then(() => {
             this.$router.push({name: 'home'});
           });
       },

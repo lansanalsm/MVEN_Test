@@ -41,38 +41,119 @@
                    }
                 }
              }
-          }
-       },
-       "/clients/create":{
+          },
           "post":{
-             "tags":[
-                "clients"
-             ],
-             "summary":"add a new client in the database",
-             "description":"add a new client in the database",
-             "parameters":[
-                {
-                   "name":"client",
-                   "in":"body",
-                   "description":"User that we want to add",
-                   "schema":{
-                      "$ref":"#/definitions/Client"
-                   }
-                }
-             ],
-             "produces":[
-                "application/json"
-             ],
-             "responses":{
-                "200":{
-                   "description":"New client is successfully created",
-                   "schema":{
-                      "$ref":"#/definitions/Client"
-                   }
-                }
-             }
-          }
-       }
+            "tags":[
+               "Clients"
+            ],
+            "summary":"add a new client in the database",
+            "description":"add a new client in the database",
+            "parameters":[
+               {
+                  "name":"client",
+                  "in":"body",
+                  "required": true,
+                  "description":"User that we want to add",
+                  "schema":{
+                     "$ref":"#/definitions/Client"
+                  }
+               }
+            ],
+            "produces":[
+               "application/json"
+            ],
+            "responses":{
+               "200":{
+                  "description":"New client is successfully created",
+                  "schema":{
+                     "$ref":"#/definitions/Client"
+                  }
+               }
+            }
+         }
+       },
+       "/clients/{id}":{
+         "get":{
+            "tags":[
+               "Clients"
+            ],
+            "parameters":[
+               {
+                  "name":"id",
+                  "in":"path",
+                  "required": true,
+                  "description":"the ID of the client we want to get"
+               }
+            ],
+            "summary":"Get a single client in the database",
+            "responses":{
+               "200":{
+                  "description":"OK",
+                  "schema":{
+                     "$ref":"#/definitions/Client"
+                  }
+               }
+            }
+         },
+         "put":{
+            "tags":[
+               "Clients"
+            ],
+            "parameters":[
+               {
+                  "name":"id",
+                  "in":"path",
+                  "required": true,
+                  "description":"the id of the client to update"
+                  
+               },
+               {
+                  "name":"client",
+                  "in":"body",
+                  "required": true,
+                  "description":"new value of the client we want to save",
+                  "schema":{
+                     "$ref":"#/definitions/Client"
+                  }
+               }
+            ],
+            "summary":"Update a client in the database",
+            "responses":{
+               "200":{
+                  "description":"OK",
+                  "schema":{
+                     "$ref":"#/definitions/Client"
+                  }
+               }
+            }
+         },
+         "delete":{
+           "tags":[
+              "Clients"
+           ],
+           "summary":"Delete a client in the database",
+           "description":"delete a client in the database based on his id",
+           "parameters":[
+              {
+                 "name":"id",
+                 "in":"path",
+                 "required": true,
+                 "description":"User that we want to delete"
+              }
+           ],
+           "produces":[
+              "application/json"
+           ],
+           "responses":{
+              "200":{
+                 "description":"client is successfully deleted",
+                 "schema":{
+                    "$ref":"#/definitions/Client"
+                 }
+              }
+           }
+        }
+      }
     },
     "definitions":{
        "Client":{
@@ -97,9 +178,9 @@
              },
              "providers":{
                 "type":"array",
-                "items":{
-                   "$ref":"#/definitions/Provider"
-                }
+                "items": {
+                   "type": "string"
+                  }
              }
           }
        },

@@ -72,7 +72,7 @@
             this.$confirm("Do you really want to delete this element ?").then(() => {
                 var client_id = event.target.getAttribute('data-value');
                 console.log('confirmed: ', client_id)
-                let uri = 'http://localhost:3000/clients/delete/' + client_id;
+                let uri = 'http://localhost:3000/clients/' + client_id;
                 this.axios.delete(uri).then(response => {
                     console.log('response :', response)
                     this.fetchClient();

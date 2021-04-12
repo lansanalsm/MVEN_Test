@@ -4,8 +4,17 @@ const apiRoutes = express.Router()
 // Client
 const Client = require('./models')
 
-// Defined store route
-apiRoutes.route('/create')
+// Defined get data(index or listing) route
+apiRoutes.route('/')
+  .get(function (req, res) {
+    Client.find((err, clients) => {
+      if (err) {
+        res.json(err)
+      } else {
+        res.json(clients)
+      }
+    })
+  })
   .post(function (req, res) {
     const client = new Client(req.body)
     console.log('body', req.body)
@@ -18,20 +27,8 @@ apiRoutes.route('/create')
       })
   })
 
-// Defined get data(index or listing) route
-apiRoutes.route('/')
-  .get(function (req, res) {
-    Client.find((err, clients) => {
-      if (err) {
-        res.json(err)
-      } else {
-        res.json(clients)
-      }
-    })
-  })
-
 // Defined edit route
-apiRoutes.route('/edit/:id')
+apiRoutes.route('/:id')
   .get((req, res) => {
     const id = req.params.id
     Client.findById(id, function (err, client) {
@@ -41,11 +38,7 @@ apiRoutes.route('/edit/:id')
       res.json(client)
     })
   })
-
-//  Defined update route
-apiRoutes.route('/update/:id')
-  .post(function (req, res) {
-    console.log('ID to update :', req.params.id)
+  .put(function (req, res) {
     Client.findById(req.params.id, (err, client) => {
       if (err) res.json(err)
       if (!client) {
@@ -63,9 +56,6 @@ apiRoutes.route('/update/:id')
       }
     })
   })
-
-// Defined delete
-apiRoutes.route('/delete/:id')
   .delete(function (req, res) {
     Client.findByIdAndRemove({ _id: req.params.id }, (err) => {
       if (err) res.json(err)

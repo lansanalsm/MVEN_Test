@@ -11,7 +11,7 @@ const swaggerDocument = require('./swagger.json')
 const app = express()
 const path = require('path')
 const PORT = 3000
-const NODE_ENV = process.env.NODE_ENV || 'production'
+const NODE_ENV = process.env.NODE_ENV || 'developpement'
 
 mongoose.Promise = global.Promise
 mongoose.set('useFindAndModify', false)
