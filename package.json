@@ -9,6 +9,7 @@
     "prod-server": "NODE_ENV=production node server.js"
   },
   "dependencies": {
+    "@vue/cli": "^4.5.12",
     "axios": "^0.21.1",
     "body-parser": "^1.19.0",
     "bootstrap": "^4.6.0",
